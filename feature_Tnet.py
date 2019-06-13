@@ -1,0 +1,21 @@
+def feature_Tnet(input_T, num_points, input_points):
+    g = Lambda(mat_mul, arguments={'B': input_T})(input_points)
+    g = Convolution1D(64, 1, input_shape=(num_points, 3), activation='relu')(g)
+    g = BatchNormalization()(g)
+    g = Convolution1D(64, 1, input_shape=(num_points, 3), activation='relu')(g)
+    g = BatchNormalization()(g)
+    # feature transform net
+    f = Convolution1D(64, 1, activation='relu')(g)
+    f = BatchNormalization()(f)
+    f = Convolution1D(128, 1, activation='relu')(f)
+    f = BatchNormalization()(f)
+    f = Convolution1D(1024, 1, activation='relu')(f)
+    f = BatchNormalization()(f)
+    f = MaxPooling1D(pool_size=num_points)(f)
+    f = Dense(512, activation='relu')(f)
+    f = BatchNormalization()(f)
+    f = Dense(256, activation='relu')(f)
+    f = BatchNormalization()(f)
+    f = Dense(64 * 64, weights=[np.zeros([256, 64 * 64]), np.eye(64).flatten().astype(np.float32)])(f)
+    feature_T = Reshape((64, 64))(f)
+    return feature_T
