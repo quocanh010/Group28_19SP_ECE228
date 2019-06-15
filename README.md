@@ -5,11 +5,11 @@ Put all traning h5 files under Prepdata folder, all testing h5 files under Prepd
 Please run main.ipynb for trainning and model.
 Then please run Visualization.ipynb for visualization.
 
-Requirement 
-Python 3.6
-Numpy
-Keras
-tensorflow
-h5py
+Requirement //
+Python 3.6//
+Numpy//
+Keras//
+tensorflow//
+h5py//
 
 Thank you!
